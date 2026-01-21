@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Sister</title>
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:black;
+  color:white;
+  overflow:hidden;
+  text-align:center;
+}
+section{
+  display:none;
+  height:100vh;
+  width:100%;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+.active{display:flex}
+
+h1{
+  font-size:32px;
+  color:#ffd700; /* subtle gold text */
+  text-shadow:none;
+}
+
+button{
+  margin-top:20px;
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  background:#ff004f;
+  color:white;
+  font-size:18px;
+}
+.back{background:#444}
+
+.countdown{
+  margin-top:15px;
+  font-size:20px;
+  color:#ffd700;
+}
+
+/* Photo Section */
+#s4 img{
+  width:80%;
+  max-width:300px;
+  border-radius:15px;
+  margin-top:15px;
+  box-shadow:0 0 15px gold;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SECTION 1 -->
+<section class="active" id="s1">
+  <h1>Hello Mittar  👋</h1>
+  <div class="countdown" id="timer"></div>
+  <button onclick="openSection(2)">Next ➡️</button>
+</section>
+
+<!-- SECTION 2 -->
+<section id="s2">
+  <h1>Happy Birthday Prathna  ❤️</h1>
+  <h1> Chhotu don </h1>
+  <button onclick="openSection(3)">Next ➡️</button>
+  <button class="back" onclick="openSection(1)">⬅ Back</button>
+</section>
+
+<!-- SECTION 3 -->
+<section id="s3">
+  <h1>Birthday Wishes 🎂</h1>
+  <p>To my favourite bahen , may your day be filled with love, joy, and everything that makes you happiness, and give endless smiles.</p>
+  <h1>Happiii Birthday! 💖</h1>
+  <button onclick="openSection(4)">Next ➡️</button>
+  <button class="back" onclick="openSection(2)">⬅ Back</button>
+</section>
+
+<!-- SECTION 4 -->
+<section id="s4">
+  <h1>📸 Don ki Photo ❤️</h1>
+  <img src="photo.jpg">
+  <button class="back" onclick="openSection(3)">⬅ Back</button>
+</section>
+
+<!-- AUDIO -->
+<audio id="song" src="song.mp3"></audio>
+
+<script>
+const song = document.getElementById('song');
+
+/* SECTION NAVIGATION */
+function openSection(n){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+
+  if(n===4){ song.play().catch(()=>{}); } 
+  else{ song.pause(); }
+}
+
+/* COUNTDOWN */
+const target = new Date(new Date().getFullYear(),0,22).getTime(); // birthday 14 Jan
+setInterval(()=>{
+  const now = new Date().getTime();
+  const diff = target - now;
+  if(diff>0){
+    const d=Math.floor(diff/(1000*60*60*24));
+    const h=Math.floor((diff/(1000*60*60))%24);
+    const m=Math.floor((diff/(1000*60))%60);
+    const s=Math.floor((diff/1000)%60);
+    document.getElementById('timer').innerHTML = `⏳ ${d}d ${h}h ${m}m ${s}s`;
+  }else{
+    document.getElementById('timer').innerHTML="🎉 Today is the Birthday!";
+  }
+},1000);
+</script>
+
+</body>
+</html>
